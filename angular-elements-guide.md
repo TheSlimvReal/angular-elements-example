@@ -29,7 +29,7 @@ I will be editing the `app-component` but you are free to use any other componen
 
 The only thing to note here is setting the `encapsulation: ViewEncapsulation.Native`, which enables the ShadowDom.
 
-In the component itself, you have a few ways to let others communicate with the others.
+In the component itself, you have a few ways to let others communicate with the you.
 Say you have a component like the following.
 
     export class AppComponent implements OnInit{
@@ -49,16 +49,14 @@ Say you have a component like the following.
         }
     }
 
-First you describe your `@Input` and `@Output`'s.
-The @Inputs will be mapped to the tags which you can define at the element:
+First you describe your `@Input`'s and `@Output`'s.
+The `@Input`'s will be mapped to the tags which you can define at the element:
 
-    <custom-element name="Frank" onclick="buttonClickHandler"></custom-element>
+    <custom-element name="Frank"></custom-element>
 
-In this example the `buttonClickHandler` is a function defined on the clients side.
-This function name will be passed to the angular component as a plain string.
-With the `eval(this.onclick)` the strings value will be evaluated and the function can then be used. 
+Now we pass the string `Frank` to the component, where we can find it in the global attribute `name`.
 
-The second function is for another button, where we want to emit our event emitter with an example string.
+The second function is for another button, where we want to emit our event emitter with an example string, but this will be used later.
 
 After that, you need to modify the app `app.module.ts` a little bit:
 
@@ -78,6 +76,7 @@ After that, you need to modify the app `app.module.ts` a little bit:
 
 Important is, that you define the component as a entry instead of a bootstrap component. 
 You then need to call the `ngDoBootstrap` method in the `AppModule` because Angular expects the bootstrapping somewhere.
+The code in the constructor is where we create the custom element and define it to the browser where this code runs.
 
 When your component is now finished, you need to compile it the right way.
 Create a new file, e.g. `build-elements.js` with the content as follows:
@@ -102,7 +101,7 @@ Everything the method does, is to combine these four JavaScript files to one fil
 
 One last thing you need to add, is to prevent a bug that can happen because of the ES version. 
 The compiler needs the Version `ES2015` to properly run.
-To define this, open the `tsconfig.app.json` and add the line line `"target": "es2015"`:
+To define this, open the `tsconfig.app.json` and add the line `"target": "es2015"`:
 
     {
         "extends": "../tsconfig.json",
@@ -122,15 +121,15 @@ Now to build you component, you run the command:
 
 > ng build --prod --output-hashing none && node build-elements.js
 
-This command actually consists of two commands.
+This command actually consists of two operations.
 The first one builds the Angular app for production mode and prevents to output hashing. 
 This means the files won't have hash-codes in their names and you can address them with the same name all the time.
 The second one runs the script that we wrote earlier.
 
-After this commands are finished, you will have a folder named `elements` containing one `.js` file, which contains all the code for the Angular environment and your component.
+After this operations are finished, you will have a folder named `elements` containing one `.js` file, which contains all the code for the Angular environment and your component.
 
 Now that you have a `angular-elements-test.js` file containing all the necessary source code, we can use this in a plain web page. 
-To do this, we create a `index.html` file in the same folder where we have the `.js` file.
+To do this, we create a `index.html` file in the same folder where we have the new `.js` file.
 
 In this `index.html` file we put the following.
 
@@ -153,7 +152,7 @@ In this `index.html` file we put the following.
 
 This looks pretty straight forward, because we are using the standard `html` line up.
 The only thing that differs is the `<custom-element>` - Tag in the body.
-This can be used, because we also import the `angular-elements-test.js` in the script tag. 
+This can be used, because we also import the `angular-elements-test.js` as a script. 
 Importing this script runs the `app.module.ts`, which defines the `custom-element` component to the browser.
 
 To run this little html page, you can just set up a small local http server.
