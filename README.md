@@ -1,27 +1,29 @@
 # AngularElementsTest
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+This project shows, how you can create, compile and use a Angular component as a web component, wherever you want.
 
-## Development server
+## Development
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+For more information about the code, checkout the whole documentation in the file `angular-elements-guide.md`.
 
-## Code scaffolding
+## Run
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Install `http-server`
+
+> npm install -g http-server
+
+Open terminal in the `./elements` folder an type
+
+> http-server
+
+The output of this command will show you on which ip/port the server is running locally.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+To compile the Angular project and regenerate the angular-elements-test.js enter
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+> npm run build:elements
 
 ## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+This code is based on a tutorial by Sebastian Eschweiler - [Angular Elements — A Practical Introduction To Web Components With Angular 6](https://medium.com/codingthesmartway-com-blog/angular-elements-a-practical-introduction-to-web-components-with-angular-6-52c0b3076c2c)
